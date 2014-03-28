@@ -31,11 +31,25 @@ object Doctor {
     }
     val todayVisits = new Button("Pacjenci zarejestrowani na dziś") {
       listenTo(this)
-      reactions += { case ButtonClicked(_) => println("Tu będą wizyty pacjentów zarejestrowanych na dzisiaj") }
+      reactions += {
+        case ButtonClicked(_) => {
+            CRUD.additionalCols = List(
+              CRUD.cancelVisit(_)
+            )
+            CRUD.cancelVisitColumns = List(Map("ID" -> "id"), Map("Pacjent" -> "patient"), Map("Data" -> "date"))
+            CRUD.elementsList(this.text, "dzisiejsze-wizyty", CRUD.cancelVisitColumns)
+        }
+      }
     }
     val incomingVisits = new Button("Moje nadchodzące wizyty") {
       listenTo(this)
-      reactions += { case ButtonClicked(_) => println("Tu będą wyświetlane nadchodzące wizyty lekarza do innych lekarzy") }
+      reactions += {
+        case ButtonClicked(_) => {
+            CRUD.additionalCols = List(CRUD.cancelOwnVisit(_))
+            CRUD.cancelOwnVisitColumns = List(Map("ID" -> "id"), Map("Lekarz" -> "doctor"), Map("Data" -> "date"))
+            CRUD.elementsList(this.text, "zblizajace-sie-wizyty", CRUD.cancelOwnVisitColumns)
+        }
+      }
     }
     val myHistory = new Button("Moja historia leczenia") {
       listenTo(this)
@@ -46,6 +60,8 @@ object Doctor {
     contents += new BorderPanel { add(registerSomeone, BorderPanel.Position.Center) }
     contents += VStrut(5);
     contents += new BorderPanel { add(todayVisits, BorderPanel.Position.Center) }
+    contents += VStrut(5);
+    contents += new BorderPanel { add(incomingVisits, BorderPanel.Position.Center) }
     // Wyjście i wylogowanie
     contents += VStrut(15);
     contents += new BorderPanel {

@@ -179,7 +179,7 @@ object CRUD {
    * Wyświetlanie czegoś
    */
   // Lista funkcji... seems legit
-  private var additionalCols : List[(String) => Button] = List()
+  var additionalCols : List[(String) => Button] = List()
   // Lista elementów w określonej kategorii
   def elementsList(pageName : String, uri : String,
     columns : List[Map[String, String]],
@@ -273,5 +273,21 @@ object CRUD {
     }
   }
   
-//  def cancelOwnVisit()
+  // Anulowanie własnej wizyty
+  var cancelOwnVisitColumns : List[Map[String, String]] = List()
+  def cancelOwnVisit(id : String) : Button = {
+    new Button("Anuluj swoją wizytę") {
+      listenTo(this)
+      reactions += { case ButtonClicked(_) => delAction("anuluj-swoja-wizyte-<id>" replaceAll("\\<id\\>", id), "Zbliżające się wizyty", "zblizajace-sie-wizyty", cancelOwnVisitColumns) }
+    }
+  }
+  
+  // Anulowanie wizyty przez osobę z recepcji/lekarza
+  var cancelVisitColumns : List[Map[String, String]] = List()
+  def cancelVisit(id : String) : Button = {
+    new Button("Anuluj wizytę") {
+      listenTo(this)
+      reactions += { case ButtonClicked(_) => delAction("anuluj-wizyte-<id>" replaceAll("\\<id\\>", id), "Pacjenci zarejestrowani na dziś", "dzisiejsze-wizyty", cancelVisitColumns) }
+    }
+  }
 }
