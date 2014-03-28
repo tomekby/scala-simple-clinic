@@ -1,7 +1,8 @@
 /**
  * MAIN TODOS:
- * !TODO ekrany dla użyszkodnika, lekarza i recepcji
+ * !TODO edycja wizyty pacjenta
  * !TODO dodanie osobie z rejestracji możliwości tworzenia nowych użyszkodników
+ * !TODO wrzucenie wszystkiego z kontrolera visits do aplikacji
  * USABILITY/LAYOUT:
  * !TODO ustawienie kontrolek na górze w prawym panelu albo coś innego; anyway wykombinować coś
  * !TODO ograniczenie maksymalnej szerokości kolumn przy liście elementów
@@ -12,6 +13,7 @@
  * WALIDACJA
  * !TODO podczas rejestracji sprawdzanie, czy lekarz i pacjent to nie jest ta sama osoba
  * !TODO przy zmianie dni/godzin pracy lekarza walidacja tego
+ * !TODO przy rejestracji wizyty w pierwszej kolejności sprawdzanie poprawności wpisanego formatu daty
  */
 /**
  * 

@@ -6,5 +6,9 @@
             <file>file:/C:/Users/tomek/Documents/NetBeansProjects/doctors/src/frontend/Main.scala</file>
             <file>file:/C:/Users/tomek/Documents/NetBeansProjects/doctors/src/backend/WebAPI.scala</file>
         </group>
+        <group name="psio2014">
+            <file>file:/C:/Users/tomek/Documents/NetBeansProjects/doctors/src/Controller/Main.scala</file>
+            <file>file:/C:/Users/tomek/Documents/NetBeansProjects/doctors/src/Model/WebAPI.scala</file>
+        </group>
     </open-files>
 </project-private>
