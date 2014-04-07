@@ -21,6 +21,18 @@ object Reception {
   }
 
   lazy val mainMenu : BoxPanel = new BoxPanel(Orientation.Vertical) {
-    // Menu recepcji
+    contents += new BorderPanel { add(Patient.registerMe, BorderPanel.Position.Center) }
+    contents += VStrut(5);
+    contents += new BorderPanel { add(Patient.incomingVisits, BorderPanel.Position.Center) }
+    contents += VStrut(5);
+    contents += new BorderPanel { add(Patient.myHistory, BorderPanel.Position.Center) }
+    contents += VStrut(5);
+    contents += new BorderPanel { add(Doctor.registerSomeone, BorderPanel.Position.Center) }
+    // Wyjście i wylogowanie
+    contents += VStrut(15);
+    contents += new BorderPanel {
+      add(logoutButton, BorderPanel.Position.West)
+      add(exitButton, BorderPanel.Position.East)
+    }
   }
 }

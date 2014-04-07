@@ -38,7 +38,7 @@ object WebAPI {
   def isInGroup(group : String) : Boolean = {
     if(group == "Administrator" && isAdmin) true
     else if(group == "Lekarz" && isDoctor) true
-    else if(group == "Reception" && isReception) true
+    else if(group == "Recepcja" && isReception) true
     else false
   }
   def getUsername(login : Boolean = false) : String = browser.get(strToUrl("api/username"+(if(login) "/1" else ""))).body.asString
@@ -64,8 +64,6 @@ object WebAPI {
     val forms = editForms(uri)
     val oldData : Map[String, String] = forms.foldLeft(Map[String, String]()) ((all, curr) => all ++ Map(curr._1 -> curr._2("data").toString))
     val newData = RequestBody(oldData ++ data ++ Map("csrf" -> getToken))
-    val r = browser.post(strToUrl(uri), Some(newData))
-    println(r.body.asString )
     browser.post(strToUrl(uri), Some(newData)).status.code == 200
   }
   def delete(uri : String) : Boolean = browser.get(strToUrl(uri+"?csrf="+getToken)).status.code == 200

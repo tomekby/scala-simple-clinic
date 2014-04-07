@@ -20,15 +20,12 @@ object Doctor {
     }
   }
   
+  lazy val registerSomeone = new Button("Zarejestruj pacjenta do lekarza") {
+    listenTo(this)
+    reactions += { case ButtonClicked(_) => CRUD.addEditAction("zarejestruj-do-lekarza", "Menu główne", Main.mainMenu, this.text) }
+  }
+
   lazy val mainMenu : BoxPanel = new BoxPanel(Orientation.Vertical) {
-    val registerMe = new Button("Zarejestruj się do lekarza") {
-      listenTo(this)
-      reactions += { case ButtonClicked(_) => CRUD.addEditAction("zarejestruj-sie-do-lekarza", "Menu główne", Doctor.mainMenu, this.text) }
-    }
-    val registerSomeone = new Button("Zarejestruj pacjenta do lekarza") {
-      listenTo(this)
-      reactions += { case ButtonClicked(_) => CRUD.addEditAction("zarejestruj-do-lekarza", "Menu główne", Doctor.mainMenu, this.text) }
-    }
     // Pacjenci zarejestrowani do lekarza
     val todayVisits = new Button("Pacjenci zarejestrowani na dziś") {
       listenTo(this)
@@ -44,36 +41,15 @@ object Doctor {
         }
       }
     }
-    // Wizyty pacjenta
-    val incomingVisits = new Button("Moje nadchodzące wizyty") {
-      listenTo(this)
-      reactions += {
-        case ButtonClicked(_) => {
-            CRUD.additionalCols = List(CRUD.cancelOwnVisit(_))
-            CRUD.cancelOwnVisitColumns = List(Map("ID" -> "id"), Map("Lekarz" -> "doctor"), Map("Data" -> "date"))
-            CRUD.elementsList(this.text, "zblizajace-sie-wizyty", CRUD.cancelOwnVisitColumns)
-        }
-      }
-    }
-    // Historia leczenia lekarza przez innych
-    val myHistory = new Button("Moja historia leczenia") {
-      listenTo(this)
-      reactions += {
-        case ButtonClicked(_) => {
-            CRUD.cancelOwnVisitColumns = List(Map("ID" -> "id"), Map("Lekarz" -> "doctor"), Map("Data" -> "date"))
-            CRUD.elementsList(this.text, "historia-leczenia", CRUD.cancelOwnVisitColumns)
-        }
-      }
-    }
-    contents += new BorderPanel { add(registerMe, BorderPanel.Position.Center) }
+    contents += new BorderPanel { add(Patient.registerMe, BorderPanel.Position.Center) }
     contents += VStrut(5);
     contents += new BorderPanel { add(registerSomeone, BorderPanel.Position.Center) }
     contents += VStrut(5);
     contents += new BorderPanel { add(todayVisits, BorderPanel.Position.Center) }
     contents += VStrut(5);
-    contents += new BorderPanel { add(incomingVisits, BorderPanel.Position.Center) }
+    contents += new BorderPanel { add(Patient.incomingVisits, BorderPanel.Position.Center) }
     contents += VStrut(5);
-    contents += new BorderPanel { add(myHistory, BorderPanel.Position.Center) }
+    contents += new BorderPanel { add(Patient.myHistory, BorderPanel.Position.Center) }
     // Wyjście i wylogowanie
     contents += VStrut(15);
     contents += new BorderPanel {

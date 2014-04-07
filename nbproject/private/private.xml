@@ -8,10 +8,8 @@
         </group>
         <group name="psio2014">
             <file>file:/C:/Users/tomek/Documents/NetBeansProjects/doctors/src/pl/vot/tomekby/Model/WebAPI.scala</file>
-            <file>file:/C:/Users/tomek/Documents/NetBeansProjects/doctors/src/pl/vot/tomekby/Controller/Patient.scala</file>
-            <file>file:/C:/Users/tomek/Documents/NetBeansProjects/doctors/src/pl/vot/tomekby/Controller/Doctor.scala</file>
             <file>file:/C:/Users/tomek/Documents/NetBeansProjects/doctors/src/pl/vot/tomekby/Controller/CRUD.scala</file>
-            <file>file:/C:/Users/tomek/Documents/NetBeansProjects/doctors/src/pl/vot/tomekby/Controller/AboutJava.java</file>
+            <file>file:/C:/Users/tomek/Documents/NetBeansProjects/doctors/src/pl/vot/tomekby/Controller/Main.scala</file>
         </group>
     </open-files>
 </project-private>

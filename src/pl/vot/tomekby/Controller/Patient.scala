@@ -20,33 +20,34 @@ object Patient {
     }
   }
   
+  lazy val registerMe = new Button("Zarejestruj się do lekarza") {
+    listenTo(this)
+    reactions += { case ButtonClicked(_) => CRUD.addEditAction("zarejestruj-sie-do-lekarza", "Menu główne", Main.mainMenu, this.text) }
+  }
+  // Wizyty pacjenta
+  lazy val incomingVisits = new Button("Moje nadchodzące wizyty") {
+    listenTo(this)
+    reactions += {
+      case ButtonClicked(_) => {
+          CRUD.additionalCols = List(CRUD.cancelOwnVisit(_))
+          CRUD.cancelOwnVisitColumns = List(Map("ID" -> "id"), Map("Lekarz" -> "doctor"), Map("Data" -> "date"))
+          CRUD.elementsList(this.text, "zblizajace-sie-wizyty", CRUD.cancelOwnVisitColumns)
+      }
+    }
+  }
+  // Historia leczenia lekarza przez innych
+  lazy val myHistory = new Button("Moja historia leczenia") {
+    listenTo(this)
+    reactions += {
+      case ButtonClicked(_) => {
+          CRUD.additionalCols = List()
+          CRUD.elementsList(this.text, "historia-leczenia", List(Map("ID" -> "id"), Map("Lekarz" -> "doctor"), Map("Data" -> "date")))
+      }
+    }
+  }
+  
   // Główne menu zwyłego użyszkodnika
   lazy val mainMenu : BoxPanel = new BoxPanel(Orientation.Vertical) {
-    val registerMe = new Button("Zarejestruj się do lekarza") {
-      listenTo(this)
-      reactions += { case ButtonClicked(_) => CRUD.addEditAction("zarejestruj-sie-do-lekarza", "Menu główne", Doctor.mainMenu, this.text) }
-    }
-    // Wizyty pacjenta
-    val incomingVisits = new Button("Moje nadchodzące wizyty") {
-      listenTo(this)
-      reactions += {
-        case ButtonClicked(_) => {
-            CRUD.additionalCols = List(CRUD.cancelOwnVisit(_))
-            CRUD.cancelOwnVisitColumns = List(Map("ID" -> "id"), Map("Lekarz" -> "doctor"), Map("Data" -> "date"))
-            CRUD.elementsList(this.text, "zblizajace-sie-wizyty", CRUD.cancelOwnVisitColumns)
-        }
-      }
-    }
-    // Historia leczenia lekarza przez innych
-    val myHistory = new Button("Moja historia leczenia") {
-      listenTo(this)
-      reactions += {
-        case ButtonClicked(_) => {
-            CRUD.additionalCols = List()
-            CRUD.elementsList(this.text, "historia-leczenia", List(Map("ID" -> "id"), Map("Lekarz" -> "doctor"), Map("Data" -> "date")))
-        }
-      }
-    }
     contents += new BorderPanel { add(registerMe, BorderPanel.Position.Center) }
     contents += VStrut(5);
     contents += new BorderPanel { add(incomingVisits, BorderPanel.Position.Center) }

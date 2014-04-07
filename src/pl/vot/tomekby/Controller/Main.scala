@@ -1,19 +1,3 @@
-/**
- * MAIN TODOS:
- * !TODO dodanie osobie z rejestracji możliwości tworzenia nowych użyszkodników
- * !TODO dodanie czego trzeba do menu pacjenta i recepcji
- * USABILITY/LAYOUT:
- * !TODO ustawienie kontrolek na górze w prawym panelu albo coś innego; anyway wykombinować coś żeby to lepiej wyglądało
- * !TODO ograniczenie maksymalnej szerokości kolumn przy liście elementów
- * !TODO zastanowić się nad fixem kolejności formularzy dodawania/edycji (np. lista map dwuwymiarowych?)
- * !TODO podczas rejestracji automatyczne ustalanie godziny po wybraniu dnia (?)
- * !TODO może jakiś start screen jako strona główna po zalogowaniu?
- * !TODO ograniczenie ilości requestów do minimum...
- * WALIDACJA
- * !TODO podczas rejestracji sprawdzanie, czy lekarz i pacjent to nie jest ta sama osoba
- * !TODO przy zmianie dni/godzin pracy lekarza walidacja tego
- * !TODO przy rejestracji wizyty w pierwszej kolejności sprawdzanie poprawności wpisanego formatu daty
- */
 package pl.vot.tomekby.Controller
 
 import scala.swing.BoxPanel
@@ -29,9 +13,17 @@ object Main extends SimpleSwingApplication {
   new SSLFix
   WebAPI.domain = "https://tomekby.vot.pl/psio2014/"
 
+  // Wybór głównego menu
+  def mainMenu = {
+    if(WebAPI.isInGroup("Administrator")) Admin.mainMenu
+    else if(WebAPI.isInGroup("Lekarz")) Doctor.mainMenu
+    else if(WebAPI.isInGroup("Recepcja")) Reception.mainMenu
+    else Patient.mainMenu
+  }
+
   def top = new MainFrame {
     // Dane okienka
-    title = "O programie i stronie"
+    title = "Rejestracja do lekarza"
     resizable = false
     // Potrzebne do custom close'a
     import javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE
@@ -98,13 +90,6 @@ object Main extends SimpleSwingApplication {
     /**
      * Podstawowe kontrolki
      */
-    // Wybór głównego menu
-    def mainMenu = {
-      if(WebAPI.isInGroup("Administrator")) Admin.mainMenu
-      else if(WebAPI.isInGroup("Lekarz")) Doctor.mainMenu
-      else if(WebAPI.isInGroup("Recepcja")) Reception.mainMenu
-      else Patient.mainMenu
-    }
     // Wyjście z programu
     def exitButton = new Button("Wyjście") {
       listenTo(this)
