@@ -1,8 +1,8 @@
 scala-simple-clinic
 ===================
 
-Example of Scala Swing usage with some HTTP and JSON operaions setting up simple teminal app
-As of now there is only part of the project (i.e. terminal-type application). The other part is web app (written in php) which, for now, i don't want to make public.
+Example of Scala Swing usage with some HTTP and JSON operaions setting up simple teminal app  
+As of now there is only part of the project (i.e. terminal-type application). The other part is web app (written in php) which, for now, i don't want to make public.  
 If I find enough time and motivation in future I'd write something simplified and put it here. Maybe even I'll do i18n for this :)
 
 Some basic info how it works and why I decided to put this (somehow ugly and not to good written project) here on GitHub:
